@@ -88,6 +88,19 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: timeline_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE timeline_items (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    item_text timeline_item_text DEFAULT ''::text NOT NULL,
+    type text DEFAULT ''::text NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -104,6 +117,14 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
+-- Name: timeline_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY timeline_items
+    ADD CONSTRAINT timeline_items_pkey PRIMARY KEY (id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -111,6 +132,7 @@ SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES
 ('20160910193731'),
-('20160911092133');
+('20160911092133'),
+('20160911093911');
 
 
