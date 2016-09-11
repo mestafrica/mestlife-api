@@ -1,9 +1,20 @@
+# == Schema Information
+#
+# Table name: timeline_items
+#
+#  id         :uuid             not null, primary key
+#  item_text  :text             default(""), not null
+#  type       :text             default(""), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
   type: MyText
-  item_text: 
+  item_text: This land is a monopoly of erroneous ideas
 
 two:
   type: MyText
-  item_text: 
+  item_text: Hello, hello, happiness

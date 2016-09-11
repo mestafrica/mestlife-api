@@ -7,6 +7,7 @@ gem 'jsonapi-resources', github: 'cerebris/jsonapi-resources'
 
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
+gem 'annotate', '~> 2.7.1'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
