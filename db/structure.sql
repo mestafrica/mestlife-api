@@ -43,6 +43,25 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: check_length_of_timeline_item_text(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION check_length_of_timeline_item_text(text) RETURNS boolean
+    LANGUAGE sql
+    AS $_$
+  SELECT length( $1 ) <= 500;
+$_$;
+
+
+--
+-- Name: timeline_item_text; Type: DOMAIN; Schema: public; Owner: -
+--
+
+CREATE DOMAIN timeline_item_text AS text
+	CONSTRAINT max_length CHECK (check_length_of_timeline_item_text(VALUE));
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -91,6 +110,7 @@ ALTER TABLE ONLY schema_migrations
 SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES
-('20160910193731');
+('20160910193731'),
+('20160911092133');
 
 
