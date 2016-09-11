@@ -2,14 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', github: 'rails/rails'
-# Use postgresql as the database for Active Record
+gem 'rails',             github: 'rails/rails'
+gem 'jsonapi-resources', github: 'cerebris/jsonapi-resources'
+
 gem 'pg', '~> 0.18'
-# Use Puma as the app server
 gem 'puma', '~> 3.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -23,7 +21,7 @@ gem 'puma', '~> 3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'dotenv-rails',  '~> 2.1.1'
+  gem 'dotenv-rails', '~> 2.1.1'
 end
 
 group :development do
