@@ -14,7 +14,13 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'should not accept comment without content' do
+    comment = Comment.new(commentable: timeline_items(:one))
+    assert_not comment.save
+  end
+
+  test 'should not accept comment without commentable' do
+    comment = Comment.new(content: 'Comment that is one of its kind')
+    assert_not comment.save
+  end
 end

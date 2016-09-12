@@ -14,11 +14,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  content: 
+  content: Unique Snowflake
   commentable: one
-  commentable_type: Commentable
+  commentable_type: TextTimelineItem
 
 two:
-  content: 
+  content: Bush rats are lovely too
+  commentable: one
+  commentable_type: TextTimelineItem
+
+three:
+  content: Unicorns
   commentable: two
-  commentable_type: Commentable
+  commentable_type: TextTimelineItem

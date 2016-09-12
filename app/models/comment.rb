@@ -15,4 +15,8 @@ class Comment < ApplicationRecord
   default_scope { where(deleted_at: 'infinity') }
 
   belongs_to :commentable, polymorphic: true
+
+  validates :commentable, presence: true
+  validates :content,     presence: true,
+                            length: { maximum: 500 }
 end
