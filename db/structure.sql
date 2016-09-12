@@ -44,6 +44,32 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 SET search_path = public, pg_catalog;
 
 --
+-- Name: check_length_of_comment_text(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION check_length_of_comment_text(text) RETURNS boolean
+    LANGUAGE sql
+    AS $_$
+  SELECT length( $1 ) <= 500;
+$_$;
+
+
+--
+-- Name: comment_text; Type: DOMAIN; Schema: public; Owner: -
+--
+
+CREATE DOMAIN comment_text AS text
+	CONSTRAINT max_length CHECK (check_length_of_comment_text(VALUE));
+
+
+--
+-- Name: DOMAIN comment_text; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON DOMAIN comment_text IS 'A special type for the text of a comment. Allows us to change character limits transparently';
+
+
+--
 -- Name: check_length_of_timeline_item_text(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -79,6 +105,21 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE comments (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    content comment_text NOT NULL,
+    commentable_type character varying NOT NULL,
+    commentable_id uuid NOT NULL,
+    deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -109,6 +150,14 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -125,6 +174,13 @@ ALTER TABLE ONLY timeline_items
 
 
 --
+-- Name: index_comments_on_commentable_type_and_commentable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_commentable_type_and_commentable_id ON comments USING btree (commentable_type, commentable_id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -133,6 +189,8 @@ SET search_path TO "$user", public;
 INSERT INTO schema_migrations (version) VALUES
 ('20160910193731'),
 ('20160911092133'),
-('20160911093911');
+('20160911093911'),
+('20160912100109'),
+('20160912100841');
 
 
