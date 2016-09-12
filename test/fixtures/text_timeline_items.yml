@@ -12,12 +12,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: <%= SecureRandom.uuid %>
   type: TextTimelineItem
   item_text: This land is a monopoly of erroneous ideas
   created_at: <%= DateTime.now %>
   updated_at: <%= DateTime.now %>
 
 two:
+  id: <%= SecureRandom.uuid %>
   type: TextTimelineItem
   item_text: Hello, hello, happiness
   created_at: <%= DateTime.now %>

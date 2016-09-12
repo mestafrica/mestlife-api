@@ -1,0 +1,2 @@
+class TextTimelineItem < TimelineItem
+end
