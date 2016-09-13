@@ -7,5 +7,9 @@ Rails.application.routes.draw do
     jsonapi_resources :reactionables do
       jsonapi_related_resources :comments
     end
+
+    jsonapi_resources :timeline_items do
+      jsonapi_related_resources :comments
+    end
   end
 end
