@@ -23,8 +23,8 @@ class V1::CommentsControllerTest < ActionDispatch::IntegrationTest
             }
           }
 
-    json = JSON.parse @response.body
-    puts json.inspect
+    assert @response.location
+    assert "application/vnd.api+json", @response.content_type
     assert_response :created
   end
 
@@ -46,7 +46,8 @@ class V1::CommentsControllerTest < ActionDispatch::IntegrationTest
             }
           }
 
-    puts @response.body
+    json = JSON.parse @response.body
+    assert json['errors']
     assert_response :unprocessable_entity
   end
 end
