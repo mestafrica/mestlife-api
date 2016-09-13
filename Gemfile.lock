@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/cerebris/jsonapi-resources.git
-  revision: 3b1d57450661f9c8c89b5d257b724e075c0606a9
+  revision: dcc1131a3fdf9c13862468aebdfc5d653b0ecc2a
   specs:
     jsonapi-resources (0.7.0)
       concurrent-ruby

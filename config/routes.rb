@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   root to: "application#api_documentation"
 
   namespace :v1 do
-    get 'timeline' => 'timeline_items#index'
+    get :timeline, controller: :timeline_items, action: :index
+    jsonapi_resources :comments, except: [:index, :show]
+    jsonapi_resources :reactionables do
+      jsonapi_related_resources :comments
+    end
   end
 end
