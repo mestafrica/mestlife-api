@@ -2,28 +2,28 @@
 #
 # Table name: comments
 #
-#  id               :uuid             not null, primary key
-#  content          :text             not null
-#  commentable_type :string           not null
-#  commentable_id   :uuid             not null
-#  deleted_at       :datetime         default(Infinity), not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                :uuid             not null, primary key
+#  content           :text             not null
+#  reactionable_type :string           not null
+#  reactionable_id   :uuid             not null
+#  deleted_at        :datetime         default(Infinity), not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
   content: Unique Snowflake
-  commentable: one
-  commentable_type: TextTimelineItem
+  reactionable: one
+  reactionable_type: TextTimelineItem
 
 two:
   content: Bush rats are lovely too
-  commentable: one
-  commentable_type: TextTimelineItem
+  reactionable: one
+  reactionable_type: TextTimelineItem
 
 three:
   content: Unicorns
-  commentable: two
-  commentable_type: TextTimelineItem
+  reactionable: two
+  reactionable_type: TextTimelineItem

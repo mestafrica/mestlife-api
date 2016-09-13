@@ -111,11 +111,11 @@ CREATE TABLE ar_internal_metadata (
 CREATE TABLE comments (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     content comment_text NOT NULL,
-    commentable_type character varying NOT NULL,
-    commentable_id uuid NOT NULL,
     deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    reactionable_id uuid NOT NULL,
+    reactionable_type text NOT NULL
 );
 
 
@@ -174,10 +174,10 @@ ALTER TABLE ONLY timeline_items
 
 
 --
--- Name: index_comments_on_commentable_type_and_commentable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comments_on_reactionable_id_and_reactionable_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_comments_on_commentable_type_and_commentable_id ON comments USING btree (commentable_type, commentable_id);
+CREATE INDEX index_comments_on_reactionable_id_and_reactionable_type ON comments USING btree (reactionable_id, reactionable_type);
 
 
 --
@@ -191,6 +191,9 @@ INSERT INTO schema_migrations (version) VALUES
 ('20160911092133'),
 ('20160911093911'),
 ('20160912100109'),
-('20160912100841');
+('20160912100841'),
+('20160913084056'),
+('20160913112504'),
+('20160913112637');
 
 

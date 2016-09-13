@@ -12,9 +12,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: MyText
+  type: TextTimelineItem
   item_text: This land is a monopoly of erroneous ideas
 
 two:
-  type: MyText
+  type: TextTimelineItem
   item_text: Hello, hello, happiness
