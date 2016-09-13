@@ -9,6 +9,5 @@
 #  updated_at :datetime         not null
 #
 
-class TimelineItem < ApplicationRecord
-  has_many :comments, as: :commentable
+class TimelineItem < Reactionable
 end

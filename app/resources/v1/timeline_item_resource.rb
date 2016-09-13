@@ -1,7 +1,3 @@
-module V1
-  class TimelineItemResource < JSONAPI::Resource
-    immutable
-
-    has_many :comments
-  end
+class V1::TimelineItemResource < V1::ReactionableResource
+  immutable
 end
