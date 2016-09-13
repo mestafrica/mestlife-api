@@ -22,6 +22,7 @@ gem 'annotate', '~> 2.7.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'pry-byebug', '~> 3.4.0'
   gem 'dotenv-rails', '~> 2.1.1'
 end
 
