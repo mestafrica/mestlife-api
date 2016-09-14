@@ -2,11 +2,7 @@ require "test_helper"
 
 class V1::CommentsControllerTest < ActionDispatch::IntegrationTest
   test "create comment for a reactionable" do
-    # TODO: Something wrong with either MiniTest
-    # or fixtures is causing this test to fail. Instead of fetching
-    # and returning fixture with key `:one`, it looks like it finds it
-    # but changes the id all the time. Not good :(
-    r = text_timeline_items(:one)
+    r = timeline_items(:one)
 
     post v1_comments_url,
          headers: request_headers,
@@ -18,14 +14,18 @@ class V1::CommentsControllerTest < ActionDispatch::IntegrationTest
                 "content": "Kumasi, we have arrived o/"
               },
               "relationships": {
-                "reactionable": { "type": "text-timeline-items", "id": r.id }
+                "reactionable": {
+                  "data": { "type": "timeline-items", "id": r.id }
+                }
               }
             }
           }
 
-    assert @response.location
-    assert "application/vnd.api+json", @response.content_type
     assert_response :created
+
+    id = JSON.parse(@response.body)["data"]["id"]
+
+    assert_match @response.location, "#{v1_comments_url}/#{id}}"
   end
 
   test "should not create comment without content" do
@@ -41,13 +41,16 @@ class V1::CommentsControllerTest < ActionDispatch::IntegrationTest
                 "content": ""
               },
               "relationships": {
-                "reactionable": { "type": "text-timeline-items", "id": r.id }
+                "reactionable": {
+                  "data": { "type": "timeline-items", "id": r.id }
+                }
               }
             }
           }
 
+    assert_response :unprocessable_entity
+
     json = JSON.parse @response.body
     assert json['errors']
-    assert_response :unprocessable_entity
   end
 end
