@@ -120,6 +120,19 @@ CREATE TABLE comments (
 
 
 --
+-- Name: likes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE likes (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    reactionable_type character varying NOT NULL,
+    reactionable_id uuid NOT NULL,
+    liked_at timestamp with time zone DEFAULT now() NOT NULL,
+    unliked_at timestamp with time zone DEFAULT 'infinity'::timestamp with time zone NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -158,6 +171,14 @@ ALTER TABLE ONLY comments
 
 
 --
+-- Name: likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY likes
+    ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -181,6 +202,13 @@ CREATE INDEX index_comments_on_reactionable_id_and_reactionable_type ON comments
 
 
 --
+-- Name: index_likes_on_reactionable_id_and_reactionable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_likes_on_reactionable_id_and_reactionable_type ON likes USING btree (reactionable_id, reactionable_type);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -194,6 +222,8 @@ INSERT INTO schema_migrations (version) VALUES
 ('20160912100841'),
 ('20160913084056'),
 ('20160913112504'),
-('20160913112637');
+('20160913112637'),
+('20160914110751'),
+('20160914112218');
 
 

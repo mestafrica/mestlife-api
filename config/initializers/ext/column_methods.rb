@@ -14,6 +14,10 @@ module ActiveRecord
         def comment_text(*args, **options)
           args.each { |name| column(name, :comment_text, options) }
         end
+
+        def timestamptz(*args, **options)
+          args.each { |name| column(name, :timestamptz, options) }
+        end
       end
     end
   end
