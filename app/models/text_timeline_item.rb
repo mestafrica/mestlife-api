@@ -10,4 +10,5 @@
 #
 
 class TextTimelineItem < TimelineItem
+  validates :item_text, presence: true
 end
