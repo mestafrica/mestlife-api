@@ -114,6 +114,7 @@ GEM
       pry (~> 0.10)
     puma (3.6.0)
     rack (2.0.1)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails-dom-testing (2.0.1)
@@ -157,6 +158,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry-byebug (~> 3.4.0)
   puma (~> 3.0)
+  rack-cors
   rails!
   spring
   spring-watcher-listen (~> 2.0.0)

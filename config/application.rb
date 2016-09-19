@@ -28,5 +28,12 @@ module MestlifeApi
     config.api_only = true
 
     config.active_record.schema_format = :sql
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins ?*
+        resource ?*, headers: :any, methods: :any
+      end
+    end
   end
 end
