@@ -3,5 +3,5 @@ class V1::TimelineItemResource < V1::ReactionableResource
 
   attributes :item_text,
              :created_at,
-             :update_at
+             :updated_at
 end
