@@ -152,7 +152,8 @@ CREATE TABLE timeline_items (
     type text DEFAULT ''::text NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL
+    deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL,
+    pinned_at timestamp without time zone
 );
 
 
@@ -234,6 +235,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20160913112637'),
 ('20160914110751'),
 ('20160914112218'),
-('20161015003836');
+('20161015003836'),
+('20170116103749');
 
 
