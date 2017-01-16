@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -111,11 +112,11 @@ CREATE TABLE ar_internal_metadata (
 CREATE TABLE comments (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     content comment_text NOT NULL,
+    reactionable_type character varying NOT NULL,
+    reactionable_id uuid NOT NULL,
     deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    reactionable_id uuid NOT NULL,
-    reactionable_type text NOT NULL
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -156,7 +157,7 @@ CREATE TABLE timeline_items (
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -164,7 +165,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -172,7 +173,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY likes
@@ -180,7 +181,7 @@ ALTER TABLE ONLY likes
 
 
 --
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -188,7 +189,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: timeline_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: timeline_items timeline_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY timeline_items
@@ -200,6 +201,13 @@ ALTER TABLE ONLY timeline_items
 --
 
 CREATE INDEX index_comments_on_reactionable_id_and_reactionable_type ON comments USING btree (reactionable_id, reactionable_type);
+
+
+--
+-- Name: index_comments_on_reactionable_type_and_reactionable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_reactionable_type_and_reactionable_id ON comments USING btree (reactionable_type, reactionable_id);
 
 
 --
