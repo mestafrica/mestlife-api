@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  photo_timeline_item: one
+  url: MyText
+  size: 1.5
+  original_file_name: MyText
+
+two:
+  photo_timeline_item: two
+  url: MyText
+  size: 1.5
+  original_file_name: MyText

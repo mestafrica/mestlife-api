@@ -134,6 +134,20 @@ CREATE TABLE likes (
 
 
 --
+-- Name: photos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE photos (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    url text NOT NULL,
+    size double precision DEFAULT 0.0 NOT NULL,
+    original_file_name text DEFAULT ''::text NOT NULL,
+    deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL,
+    photo_timeline_item_id uuid NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -153,7 +167,8 @@ CREATE TABLE timeline_items (
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     deleted_at timestamp without time zone DEFAULT 'infinity'::timestamp without time zone NOT NULL,
-    pinned_at timestamp without time zone
+    pinned_at timestamp without time zone,
+    number_of_photos_attached integer DEFAULT 0
 );
 
 
@@ -179,6 +194,14 @@ ALTER TABLE ONLY comments
 
 ALTER TABLE ONLY likes
     ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: photos photos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY photos
+    ADD CONSTRAINT photos_pkey PRIMARY KEY (id);
 
 
 --
@@ -219,6 +242,28 @@ CREATE INDEX index_likes_on_reactionable_id_and_reactionable_type ON likes USING
 
 
 --
+-- Name: index_photos_on_photo_timeline_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_photos_on_photo_timeline_item_id ON photos USING btree (photo_timeline_item_id);
+
+
+--
+-- Name: index_photos_on_url; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_photos_on_url ON photos USING btree (url);
+
+
+--
+-- Name: photos fk_rails_ac6b523f09; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY photos
+    ADD CONSTRAINT fk_rails_ac6b523f09 FOREIGN KEY (photo_timeline_item_id) REFERENCES timeline_items(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -236,6 +281,9 @@ INSERT INTO schema_migrations (version) VALUES
 ('20160914110751'),
 ('20160914112218'),
 ('20161015003836'),
-('20170116103749');
+('20170116103749'),
+('20170202143619'),
+('20170203154933'),
+('20170205094940');
 
 
